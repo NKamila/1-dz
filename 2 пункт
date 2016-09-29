@@ -1,0 +1,1 @@
+perl -lnaF';' -e "$i++; if ($F[2] > 1048567) {print $F[3];$j++;} else {$j=$j+0;} }{ print qq{Vsego=}; print qq{$i\n}; print qq{Razmer bol'she 1 Mb=}; print $j;" 1.txt
