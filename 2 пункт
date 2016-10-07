@@ -1,1 +1,26 @@
 perl -lnaF';' -e "$i++; if ($F[2] > 1048567) {print $F[3];$j++;} else {$j=$j+0;} }{ print qq{Vsego=}; print qq{$i\n}; print qq{Razmer bol'she 1 Mb=}; print $j;" 1.txt
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Исправленный вариант:
+dir |perl -lnaF';' -e "if ($F[2] > 1) {print $F[3];$j++;} else {$j=$j+0;} }{ print qq{Vsego=}; print qq{$.\n}; print qq{Razmer bol'she 1 Mb=}; print $j;" 1.txt
+
+
+Исправления:
+удалена лишняя переменная $i
+else {$j=$j+0;} нужна для того, что бы если ни одни файл не был размером больше чем 1 мб, мы вывели:
+Razmer bol'she 1 Mb=0
+если объявить переменную $j=0 в начале, программа работает не корректно(изменила размер на 1 байт):
+dir |perl -lnaF';' -e "$j=0; if ($F[2] > 1) {print $F[3];$j++;} }{ print qq{Vsego=}; print qq{$.\n}; print qq{Razmer bol'she 1 b=}; print $j;" 1.txt
+1.pl
+123.csv
+1dz.pl
+2.pl
+2.txt
+change.pl
+NTUSER.DAT
+Vsego=
+8
+
+Razmer bol'she 1 b=
+1
+
+(всего файлов 8, размер больше 1 байта 7)
