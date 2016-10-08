@@ -17,3 +17,23 @@ print Dumper($s_array);
 print "using DDP\n";
 p($s_array);
 close(MYFILE);
+-----------------------------------------------------
+Исправленный вариант:
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Data::Dumper;
+use DDP;
+open(MYFILE,"<1.txt");
+my @array;
+my $s_array;
+while (<MYFILE>)
+	{
+	@array=split /;/;
+	push @$s_array,[@array];
+	}
+print "using Data::Dumper\n";
+print Dumper($s_array);
+print "using DDP\n";
+p($s_array);
+close(MYFILE);
